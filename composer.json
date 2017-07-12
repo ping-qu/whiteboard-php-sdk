@@ -1,21 +1,25 @@
 {
     "name": "ping-qu/whiteboard",
     "description": "whiteboard php library",
-    "type": "library",
-    "license": "MIT",
+    "version": "0.0.1",
+    "require": {
+        "php": ">=5.3",
+        "ping-qu/exception": "0.0.*",
+        "ping-qu/openapi-base": "0.0.*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Pingqu\\": "src/"
+
+        }
+    },
+    "license": "LGP-2.1",
     "authors": [
         {
             "name": "linyue",
             "email": "769353695@qq.com"
         }
-    ],
-    "require": {
-        "php": ">=5.3",
-        "ping-qu/exception": "0.0.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Pingqu\\": "src/"
-        }
-    }
+    ]
 }
