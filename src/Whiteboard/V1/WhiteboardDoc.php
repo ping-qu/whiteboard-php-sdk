@@ -1,12 +1,12 @@
 <?php
-
+namespace Pingqu\Whiteboard\V1;
 /**
  * Created by PhpStorm.
  * User: yuelin
  * Date: 2017/7/11
  * Time: 下午4:02
  */
-class Client
+class WhiteboardDoc
 {
     public function __construct($accessKeyId, $accessKeySecret, $endpoint)
     {
@@ -21,16 +21,28 @@ class Client
         $this->accessKeySecret = empty($accessKeySecret)?$this->accessKeySecret:$accessKeySecret;
     }
 
-
+    public function get(){
+        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,$this->endpoint.'/v4_0/whiteboard/doc');
+        $params = [
+        ];
+        $client->setParams($params);
+        $respone = $client->sendRequest('GET');
+        $body = json_decode($respone->body);
+        if($body->errorId == 'OK'){
+            return ['lists'=>$body->lists,'page'=>$body->page];
+        }else{
+            throw new \DdvPhp\DdvFile\Exception\Sys('添加失败',$body->message);
+        }
+    }
 
 
     public function create($name){
-        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,'/v4_0/whiteboard/create');
+        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,$this->endpoint.'/v4_0/whiteboard/doc');
         $params = [
             'name'=>$name
         ];
-        $client->set_params($params);
-        $respone = $client->send_request('GET');
+        $client->setParams($params);
+        $respone = $client->sendRequest('POST');
         $body = json_decode($respone->body);
         if($body->errorId == 'OK'){
             return $body->data;
@@ -40,18 +52,15 @@ class Client
 
     }
 
-    public function pause(){
-
-    }
 
 
     public function destory($sid){
-        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,'/v4_0/whiteboard/delete');
+        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,$this->endpoint.'/v4_0/whiteboard/doc');
         $params = [
             'sid'=>$sid
         ];
-        $client->set_params($params);
-        $respone = $client->send_request('DELETE');
+        $client->setParams($params);
+        $respone = $client->sendRequest('DELETE');
         $body = json_decode($respone->body);
         if($body->errorId == 'OK'){
             return $body->data;
