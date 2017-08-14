@@ -73,6 +73,19 @@ class Whiteboard
             throw new \DdvPhp\DdvFile\Exception\Sys('查询失败',$body->message);
         }
     }
+    //打开白板
+    public function open_whiteboard($params){
+        $client = new \Pingqu\OpenApi\Api($this->accessKeyId, $this->accessKeySecret,$this->endpoint.'/v4_0/api/whiteboard/openWhiteboard');
+        $client->setParams($params);
+        $respone = $client->sendRequest('GET');
+        $body = json_decode($respone->body);
+        var_dump($body);
+        if($body->errorId == 'OK'){
+            return $body->data;
+        }else{
+            throw new \DdvPhp\DdvFile\Exception\Sys('打开失败',$body->message);
+        }
+    }
 
 
 }

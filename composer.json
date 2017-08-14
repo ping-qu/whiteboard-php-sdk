@@ -1,7 +1,7 @@
 {
     "name": "ping-qu/whiteboard",
     "description": "whiteboard php library",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "require": {
         "php": ">=5.3",
         "ping-qu/exception": "0.0.*",
